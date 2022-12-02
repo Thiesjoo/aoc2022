@@ -6,6 +6,7 @@
 		"esModuleInterop": true,
 		"sourceMap": true,
 		"allowJs": true,
+		"incremental": true
 	},
 	"include": ["**/*"],
 	"exclude": ["template/", "node_modules/"]

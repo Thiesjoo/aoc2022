@@ -1,6 +1,6 @@
-# Advent of Code Template
+# Advent of Code 2022
 
-Template made by [Thies](https://github.com/thiesjoo)
+Code made by [Thies](https://github.com/thiesjoo)
 
 ## Usage
 
