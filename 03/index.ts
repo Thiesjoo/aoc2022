@@ -14,7 +14,7 @@ function mapToPrio(a: string): number {
 
 // Part 1
 // ======
-// ~0 ms - answer: 8240
+// ~2 ms - answer: 8240
 
 const part1 = (input: string) => {
 	const start = now();

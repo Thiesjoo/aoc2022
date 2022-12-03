@@ -2,7 +2,7 @@ import { default as now } from "performance-now";
 
 // Part 1
 // ======
-// ~0 ms - answer: 0
+// ~0.5 ms - answer: 70764
 
 const part1 = (input: string) => {
 	const start = now();
@@ -25,7 +25,7 @@ const part1 = (input: string) => {
 
 // Part 2
 // ======
-// ~0 ms - answer: 0
+// ~0.8 ms - answer: 203905
 
 const part2 = (input: string) => {
 	const start = now();
