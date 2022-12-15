@@ -2,7 +2,7 @@ import { default as now } from "performance-now";
 
 // Part 1
 // ======
-// ~0 ms - answer: 0
+// ~3240 ms - answer: 5127797
 
 //5698300 too high
 const part1 = (input: string) => {
@@ -35,7 +35,6 @@ const part1 = (input: string) => {
 
 	// All the xcoord to check:
 	const xCoords = Array.from({ length: scanRange[1] - scanRange[0] + 1 }, (_, i) => i + scanRange[0]);
-	console.log(data, scanRange, xCoords);
 
 	const yMAX = 2000000;
 
@@ -125,7 +124,6 @@ const part2 = (input: string) => {
 			})
 			.filter((x) => x !== undefined);
 	});
-	console.log(hoi);
 
 	//@ts-ignore
 	result = hoi[0][0] * 4000000 + hoi[0][1];
