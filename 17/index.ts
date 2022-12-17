@@ -105,35 +105,50 @@ const part2 = (input: string) => {
 	let result = 0;
 
 	const WIDTH = 7;
-	const MAX_ROCKS = 500000000;
+	const MAX_ROCKS = 1000000000000;
 	let max_h = -1;
-	let max_hm = 0;
 	let curr_jet = 0;
+
+	let added = 0;
 
 	const data = input.split("");
 	const map = new Set<string>();
+	let done = false;
 
 	const gameStates = new Map<string, { prevT: number; prevX: number }>();
 
 	for (let i = 0; i < MAX_ROCKS; i++) {
-		// // Get the highest point in every column
+		// Generate a skyline of the current rocks (max 30 high)
 		let skyLine = Array.from({ length: WIDTH }, (_, i) => {
-			let h = max_h;
-			while (h > 0 && !map.has(`${i},${h}`)) h--;
-			return h;
-		}).map((x) => x - max_h);
+			return i;
+		}).flatMap((x) => {
+			let coords: [number, number][] = [];
+			for (let i = max_h; i > max_h - 30; i--) {
+				if (map.has(`${x},${i}`)) {
+					coords.push([x, i]);
+				}
+			}
+			return coords;
+		});
 
-		// skyLine = skyLine.map((x) => x - Math.max(...skyLine));
-		const indexing = `${i % rocks.length},${curr_jet % data.length},${skyLine}`;
-		if (gameStates.has(indexing)) {
+		// Make it relative to the highest rock
+		const maxSkyline = Math.max(...skyLine.map((x) => x[1]));
+		skyLine = skyLine.map((x) => [x[0], x[1] - maxSkyline]);
+
+		const indexing = `${i % rocks.length},${curr_jet % data.length},${JSON.stringify(skyLine)}`;
+		if (gameStates.has(indexing) && i > 2022 && !done) {
 			const { prevT, prevX } = gameStates.get(indexing)!;
-			console.log(prevT, prevX);
 			const diff = i - prevT;
 			const diffX = max_h - prevX;
+
+			// We do not want to go over the trillionth rock, so we floor it here.
 			const loop = Math.floor((MAX_ROCKS - i) / diff);
-			// break;
 			i += loop * diff;
-			max_h += loop * diffX;
+
+			// Do not update max_h, because that would require many modifications to the map set.
+			added += loop * diffX;
+
+			done = true;
 		} else {
 			gameStates.set(indexing, { prevT: i, prevX: max_h });
 		}
@@ -141,7 +156,6 @@ const part2 = (input: string) => {
 		let currentRock = rocks[i % rocks.length].map((x) => {
 			return [x[0] + 2, x[1] + max_h + 4];
 		});
-
 		while (true) {
 			let jet = data[curr_jet++ % data.length];
 			let newRock = currentRock.map((x) => {
@@ -171,16 +185,9 @@ const part2 = (input: string) => {
 				currentRock = newRock;
 			}
 		}
-
-		// if (max_h > 100) {
-		// 	max_h -= 30;
-		// 	max_hm++;
-		// }
 	}
 
-	// Bro wat, waarom +1 america explain
-	// result = max_hm * 30 + max_h + 1 + 1560919511228;
-
+	result = max_h + added + 1;
 	const end = now();
 	console.log("Execution time: ~%dms", (end - start).toFixed(3));
 
