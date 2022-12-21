@@ -11,6 +11,7 @@
 	},
 	"dependencies": {
 		"advent-of-code": "^5.0.0",
+		"algebra.js": "^0.2.6",
 		"nodemon": "^2.0.13",
 		"performance-now": "^2.1.0",
 		"typescript": "^4.4.3"
