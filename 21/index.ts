@@ -1,6 +1,6 @@
 import { default as now } from "performance-now";
 //@ts-ignore
-import { Equation, Expression, parse } from "algebra.js";
+import { Equation, parse } from "algebra.js";
 
 // As if i'm going to solve such a large formula by hand. Just import a library (:
 // Delta time was pretty high, because WolframAlpha couldn't solve it due to character limit.
